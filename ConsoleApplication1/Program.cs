@@ -10,56 +10,103 @@ namespace Vigenere
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter the phrase to be encrypted:\n");
-            string beEncrypted = Console.ReadLine();
-            Console.Write("Enter the cipher word:\n");
-            string cipherWord = Console.ReadLine();
-            string postEncrypt1 = null;
-            string postEncrypt2 = null;
-/*            char[,] vTable = new char[26, 26]
-            {
-                {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'},
-                {'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A'},
-                {'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B'},
-                {'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C'},
-                {'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D'},
-                {'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E'},
-                {'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F'},
-                {'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G'},
-                {'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'},
-                {'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'},
-                {'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
-                {'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'},
-                {'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'},
-                {'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'},
-                {'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'},
-                {'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'},
-                {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'},
-                {'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q'},
-                {'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'},
-                {'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S'},
-                {'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'},
-                {'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'},
-                {'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'},
-                {'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W'},
-                {'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X'},
-                {'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y'},
-            };*/
+            string plainInput = null;
+            string plainUpper = null;
+            string cipherWord = null;
+            string encryptUpper = null;
+            string encryptIn = null;
+            string choice = null;
+            int check = 0;
+            int badCount = 0; //count of non alphabet characters in strings so they can be skipped without moving the cipher
 
-            for (int i = 0; i < beEncrypted.Length; i++)
+            while (!(int.TryParse(choice, out check) && check >= 1 && check <= 3)) //sees if choice is could be an int, if so, makes check that int
             {
-                char c = beEncrypted[i];
-                int letterValue1 = c - 65;
-                char c2 = cipherWord[i % cipherWord.Length];
-                int letterValue2 = c2 - 65;
-                int asciiValue = (letterValue1 + letterValue2) % 26 + 65;
-                postEncrypt1 += (char) asciiValue;
-//                postEncrypt2 += vTable[letterValue1,letterValue2];
+                //find an easy IF for Console.Write("Invalid Input. Try Again\n");
+                Console.Write("[1] Encrypt text\n[2] Decrypt text\n[3] Find cipher\n");
+                choice = Console.ReadLine();
             }
-            Console.Write("Encrypted message:\n");
-            Console.Write(postEncrypt1 + "\n");
-//            Console.Write(postEncrypt2 + "\n");
-            Console.ReadLine();     
+
+            if (choice != "2")
+            {
+                Console.Write("Enter the unencrypted phrase:\n");
+                plainInput = Console.ReadLine();
+                plainUpper = plainInput.ToUpper();
+            }
+
+            if (choice != "1")
+            {
+                Console.Write("Enter the encrypted phrase:\n");
+                encryptIn = Console.ReadLine();
+                encryptUpper = encryptIn.ToUpper();
+            }
+
+            if (choice != "3")
+            {
+                Console.Write("Enter the cipher word:\n");
+                cipherWord = Console.ReadLine();
+                cipherWord = cipherWord.ToUpper();
+            }
+
+            if (choice == "1")
+            {
+                for (int i = 0; i < plainUpper.Length; i++)
+                {
+                    if (char.IsLetter(plainUpper[i]))
+                    {
+                        char c = plainUpper[i];
+                        int letterValue1 = c - 65;
+                        char c2 = cipherWord[(i - badCount) % cipherWord.Length];
+                        int letterValue2 = c2 - 65;
+                        int asciiValue = (letterValue1 + letterValue2) % 26 + 65;
+                        encryptUpper += (char)asciiValue;
+                    }
+                    else
+                    {
+                        encryptUpper += plainUpper[i];
+                        badCount++;
+                    }
+                }
+
+                Console.Write("\nEncrypted message:\n");
+                Console.Write(encryptUpper + "\n");
+            }
+
+            if (choice == "2")
+            {
+                for (int i = 0; i < encryptUpper.Length; i++)
+                {
+                    if (char.IsLetter(encryptUpper[i]))
+                    {
+                        char c = encryptUpper[i];
+                        int letterValue1 = c - 65;
+                        char c2 = cipherWord[(i - badCount) % cipherWord.Length];
+                        int letterValue2 = c2 - 65;
+                        int asciiValue = (26 + letterValue1 - letterValue2) % 26 + 65; //add 26 to avoid negatives
+                        plainUpper += (char)asciiValue;
+                    }
+                    else
+                    {
+                        plainUpper += encryptUpper[i];
+                        badCount++;
+                    }
+                }
+
+                Console.Write("\nDecrypted message:\n");
+                Console.Write(plainUpper + "\n");
+            }
+
+            if (choice == "3")
+            {
+                for (int i = 0; i < encryptUpper.Length; i++) //no check for bad characters because lazy
+                {
+                    cipherWord += (char)( (26 + encryptUpper[i] - plainUpper[i]) % 26 + 65); //add 26 to avoid negatives
+                }
+
+                Console.Write("\nCipher:\n");
+                Console.Write(cipherWord + "\n");
+            }
+
+            Console.ReadKey();
         }
     }
 }
